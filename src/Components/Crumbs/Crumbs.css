@@ -1,0 +1,35 @@
+.crumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #5e5e5e;
+  font-size: 14px;
+  margin: 20px 20px;
+  text-transform: capitalize;
+}
+
+@media (max-width: 1280px) {
+  .crumbs {
+    margin: 30px 50px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .crumbs {
+    margin: 30px 30px;
+  }
+}
+@media (max-width: 800px) {
+  .crumbs {
+    font-size: 12px;
+    margin: 30px 12px;
+  }
+}
+
+@media (max-width: 500px) {
+  .crumbs {
+    font-size: 10px;
+    margin: 20px 8px;
+  }
+}

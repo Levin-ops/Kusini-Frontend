@@ -1,0 +1,136 @@
+.cart_items {
+  margin: 100px 100px;
+}
+
+.cart_items hr {
+  height: 3px;
+  background: #e2e2e2;
+  border: 0;
+}
+.cart_item_format_main {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 0.5fr;
+  align-items: center;
+  gap: 75px;
+  padding: 20px 0px;
+  color: #000000;
+  font-size: 18px;
+  font-weight: 600;
+}
+.cart_items_format {
+  font-size: 17px;
+  font-weight: 500;
+}
+.cart_icon_product_icon {
+  height: 62px;
+}
+.cart_items_remove_icon {
+  width: 15px;
+  margin: 0px 40px;
+  cursor: pointer;
+}
+.cart_items_quantity {
+  width: 40px;
+  height: 40px;
+  border: 2px solid #ebebeb;
+  background: #fff;
+}
+.cart_items_down {
+  display: flex;
+  margin: 100px 0;
+}
+.cart_items_total {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-right: 200px;
+}
+
+.cart_items_total_items {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 0px;
+}
+.cart_items_total button {
+  width: 262px;
+  height: 58px;
+  outline: none;
+  border: none;
+  background: #b07506;
+  color: #fff;
+  border-radius: 29px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  align-self: center;
+}
+
+.cart_items_total button:hover {
+  color: black;
+}
+
+@media (max-width: 768px) {
+  .cart_items {
+    margin: 20px 20px;
+  }
+
+  .cart_item_format_main {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 0.5fr;
+    gap: 16px;
+    font-size: 16px;
+  }
+
+  .cart_items_total {
+    margin: 0;
+  }
+
+  .cart_items_total button {
+    width: 70%;
+    align-self: center;
+  }
+}
+
+/* For mobile devices */
+@media (max-width: 480px) {
+  .cart_items {
+    margin: 10px 10px;
+  }
+
+  .cart_item_format_main {
+    grid-template-columns: 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr;
+    gap: 10px;
+    padding: 10px 2px;
+    font-size: 12px;
+  }
+
+  .cart_item_format_main p,
+  .cart_items_format p {
+    text-align: center;
+  }
+
+  .cart_item_quantity,
+  .cart_items_remove_icon {
+    margin: 0 auto;
+  }
+
+  .cart_items_down {
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+  }
+
+  .cart_items_total {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .cart_items_total button {
+    width: 80%;
+    margin-top: 10px;
+  }
+
+  .cart_items hr {
+    margin: 10px 0;
+  }
+}
