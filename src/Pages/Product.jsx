@@ -11,7 +11,7 @@ function Product() {
   const product = all_product.find((e) => e.id === Number(productId));
 
   if (!product) {
-    return <div>Loading product...</div>;
+    return <div className="product_display">Loading product...</div>;
   }
 
   return (

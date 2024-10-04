@@ -14,7 +14,7 @@ const ShopContextProvider = (props) => {
   const [all_product, setAll_Product] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:4000/allproducts")
+    fetch("https://kusini-backend-1.onrender.com/allproducts")
       .then((response) => response.json())
       .then((data) => setAll_Product(data));
   }, []);

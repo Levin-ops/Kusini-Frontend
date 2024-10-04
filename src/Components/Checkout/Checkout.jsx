@@ -64,16 +64,19 @@ function Checkout() {
 
   const initiateSTKPush = async (phone, amount, orderData) => {
     try {
-      const response = await fetch("http://localhost:4000/stk", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          phone: phone,
-          amount: amount,
-        }),
-      });
+      const response = await fetch(
+        "https://kusini-backend-1.onrender.com/stk",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            phone: phone,
+            amount: amount,
+          }),
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();
@@ -114,13 +117,16 @@ function Checkout() {
     };
 
     try {
-      const response = await fetch("http://localhost:4000/createOrder", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(orderData),
-      });
+      const response = await fetch(
+        "https://kusini-backend-1.onrender.com/createOrder",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(orderData),
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();

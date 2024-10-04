@@ -9,11 +9,13 @@ function ProductDisplay(props) {
   const { product } = props;
   const { addToCart } = useContext(ShopContext);
 
-  const [softDrink, setSoftDrink] = useState([]);
+  const [softDrinks, setSoftDrinks] = useState([]);
 
-  const softDrinks = all_product
-    .filter((item) => item.category === "soft_drink")
-    .slice(0, 4);
+  useEffect(() => {
+    fetch("https://kusini-backend-1.onrender.com/softdrinks")
+      .then((response) => response.json())
+      .then((data) => setSoftDrinks(data));
+  }, []);
 
   return (
     <div className="product_display">

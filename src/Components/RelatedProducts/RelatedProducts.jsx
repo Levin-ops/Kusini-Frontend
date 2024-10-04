@@ -5,7 +5,9 @@ import Items from "../Items/Items";
 
 function RelatedProducts({ product }) {
   if (!product) {
-    return <div>No related products available.</div>;
+    return (
+      <div className="related_products">No related products available.</div>
+    );
   }
 
   const relatedProduct = all_product
