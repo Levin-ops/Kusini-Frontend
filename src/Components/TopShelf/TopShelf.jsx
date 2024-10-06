@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from "react";
 import "./TopShelf.css";
 import Items from "../Items/Items";
-// import all_product from "../Assets/all_product";
 
 function TopShelf() {
   const [topShelfDrinks, setTopShelfDrinks] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch("https://kusini-backend-1.onrender.com/topshelf")
       .then((response) => response.json())
-      .then((data) => setTopShelfDrinks(data));
+      .then((data) => {
+        setTopShelfDrinks(data);
+        setLoading(false); // Data is loaded, stop showing the loader
+      })
+      .catch(() => {
+        setLoading(false); // In case of an error, also stop showing the loader
+      });
   }, []);
 
   return (
@@ -17,8 +23,10 @@ function TopShelf() {
       <h1>TOP SHELF</h1>
       <hr />
       <div className="topshelfdrinks">
-        {topShelfDrinks.map((item, i) => {
-          return (
+        {loading ? (
+          <div className="loading-animation">Loading...</div> // Display a loading animation
+        ) : (
+          topShelfDrinks.map((item, i) => (
             <Items
               key={i}
               id={item.id}
@@ -26,8 +34,8 @@ function TopShelf() {
               image={item.image}
               price={item.price}
             />
-          );
-        })}
+          ))
+        )}
       </div>
     </div>
   );

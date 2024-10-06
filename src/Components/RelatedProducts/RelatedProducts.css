@@ -42,3 +42,9 @@
 .related_products_item span {
   font-size: 16px;
 }
+
+.loading-animation {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-top: 20px;
+}

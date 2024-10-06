@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "../Pages/CSS/ShopAllProducts.css";
 import { ShopContext } from "../Context/ShopContext";
 import Items from "../Components/Items/Items";
@@ -8,8 +8,14 @@ function ShopAllProducts() {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
-
   const [sortCriteria, setSortCriteria] = useState("name");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (all_product.length > 0) {
+      setLoading(false); // Stop loading once products are available
+    }
+  }, [all_product]);
 
   const filteredAndSortedProducts = all_product
     .filter((item) =>
@@ -59,15 +65,19 @@ function ShopAllProducts() {
         </div>
       </div>
       <div className="shopallproducts_products">
-        {filteredAndSortedProducts.map((item, i) => (
-          <Items
-            key={i}
-            id={item.id}
-            name={item.name}
-            image={item.image}
-            price={item.price}
-          />
-        ))}
+        {loading ? (
+          <div className="loading-animation">Loading products...</div> // Display loading animation
+        ) : (
+          filteredAndSortedProducts.map((item, i) => (
+            <Items
+              key={i}
+              id={item.id}
+              name={item.name}
+              image={item.image}
+              price={item.price}
+            />
+          ))
+        )}
       </div>
     </div>
   );

@@ -1,6 +1,5 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "../Pages/CSS/ShopCategory.css";
-import all_product from "../Components/Assets/all_product";
 import dropdown_icon from "../Components/Assets/dropdown_icon.png";
 import { ShopContext } from "../Context/ShopContext";
 import Items from "../Components/Items/Items";
@@ -10,8 +9,14 @@ function ShopCategory(props) {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
-
   const [sortCriteria, setSortCriteria] = useState("name");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (all_product.length > 0) {
+      setLoading(false); // Stop loading when products are available
+    }
+  }, [all_product]);
 
   const filteredAndSortedProducts = all_product
     .filter(
@@ -32,9 +37,11 @@ function ShopCategory(props) {
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
   };
-  const handleSortCriteriaChange = () => {
+
+  const handleSortCriteriaChange = (event) => {
     setSortCriteria(event.target.value);
   };
+
   const handleSortChange = () => {
     setSortOrder(sortOrder === "asc" ? "desc" : "asc");
   };
@@ -61,15 +68,19 @@ function ShopCategory(props) {
         </div>
       </div>
       <div className="shopcategory_products">
-        {filteredAndSortedProducts.map((item, i) => (
-          <Items
-            key={i}
-            id={item.id}
-            name={item.name}
-            image={item.image}
-            price={item.price}
-          />
-        ))}
+        {loading ? (
+          <div className="loading-animation">Loading products...</div> // Loading animation
+        ) : (
+          filteredAndSortedProducts.map((item, i) => (
+            <Items
+              key={i}
+              id={item.id}
+              name={item.name}
+              image={item.image}
+              price={item.price}
+            />
+          ))
+        )}
       </div>
     </div>
   );

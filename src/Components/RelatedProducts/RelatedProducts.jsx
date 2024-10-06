@@ -1,28 +1,40 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./RelatedProducts.css";
 import all_product from "../Assets/all_product";
 import Items from "../Items/Items";
 
 function RelatedProducts({ product }) {
+  const [loading, setLoading] = useState(true);
+  const [relatedProduct, setRelatedProduct] = useState([]);
+
+  useEffect(() => {
+    if (product) {
+      const filteredProducts = all_product
+        .filter(
+          (item) => item.category === product.category && item.id !== product.id
+        )
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 5);
+
+      setRelatedProduct(filteredProducts);
+    }
+    setLoading(false); // Data processing complete, stop loading
+  }, [product]);
+
   if (!product) {
     return (
       <div className="related_products">No related products available.</div>
     );
   }
 
-  const relatedProduct = all_product
-    .filter(
-      (item) => item.category === product.category && item.id !== product.id
-    )
-    .sort(() => Math.random() - 0.5)
-    .slice(0, 5);
-
   return (
     <div className="related_products">
       <h1>Related Products</h1>
       <hr />
       <div className="related_products_item">
-        {relatedProduct.length > 0 ? (
+        {loading ? (
+          <div className="loading-animation">Loading related products...</div> // Display a loading animation
+        ) : relatedProduct.length > 0 ? (
           relatedProduct.map((item) => (
             <Items
               key={item.id}

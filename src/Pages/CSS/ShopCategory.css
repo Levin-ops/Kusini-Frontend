@@ -79,6 +79,12 @@
   background-color: #b07506;
 }
 
+.loading-animation {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-top: 20px;
+}
+
 @media (min-width: 768px) {
   .shopcategory_products {
     grid-template-columns: repeat(4, 1fr);
