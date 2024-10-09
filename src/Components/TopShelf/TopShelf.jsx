@@ -7,7 +7,7 @@ function TopShelf() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://kusini-backend-1.onrender.com/topshelf")
+    fetch("https://kusini-backend-1.onrender.com/products/topshelf")
       .then((response) => response.json())
       .then((data) => {
         setTopShelfDrinks(data);

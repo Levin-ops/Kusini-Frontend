@@ -12,14 +12,14 @@ function ProductDisplay(props) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://kusini-backend-1.onrender.com/softdrinks")
+    fetch("https://kusini-backend-1.onrender.com/products/softdrinks")
       .then((response) => response.json())
       .then((data) => {
         setSoftDrinks(data);
-        setLoading(false); // Stop loading once data is fetched
+        setLoading(false);
       })
       .catch(() => {
-        setLoading(false); // Stop loading even if there's an error
+        setLoading(false);
       });
   }, []);
 

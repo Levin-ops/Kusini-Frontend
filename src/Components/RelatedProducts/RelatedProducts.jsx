@@ -14,7 +14,7 @@ function RelatedProducts({ product }) {
           (item) => item.category === product.category && item.id !== product.id
         )
         .sort(() => Math.random() - 0.5)
-        .slice(0, 5);
+        .slice(0, 4);
 
       setRelatedProduct(filteredProducts);
     }

@@ -8,7 +8,7 @@ function Popular() {
   const [popularDrinks, setPopularDrinks] = useState([]);
 
   useEffect(() => {
-    fetch("https://kusini-backend-1.onrender.com/populardrinks")
+    fetch("https://kusini-backend-1.onrender.com/products/populardrinks")
       .then((response) => response.json())
       .then((data) => setPopularDrinks(data));
   }, []);
