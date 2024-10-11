@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./RelatedProducts.css";
-import all_product from "../Assets/all_product";
 import Items from "../Items/Items";
 
 function RelatedProducts({ product }) {
@@ -9,16 +8,27 @@ function RelatedProducts({ product }) {
 
   useEffect(() => {
     if (product) {
-      const filteredProducts = all_product
-        .filter(
-          (item) => item.category === product.category && item.id !== product.id
-        )
-        .sort(() => Math.random() - 0.5)
-        .slice(0, 4);
-
-      setRelatedProduct(filteredProducts);
+      // Fetch related products from the backend
+      fetch(
+        `https://kusini-backend-1.onrender.com/products/relatedproducts?category=${product.category}`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          // Filter out the current product from the related products
+          const filteredProducts = data
+            .filter((item) => item.id !== product.id)
+            .slice(0, 4);
+          setRelatedProduct(filteredProducts);
+        })
+        .catch((error) => {
+          console.error("Error fetching related products:", error);
+        })
+        .finally(() => {
+          setLoading(false); // Data processing complete, stop loading
+        });
+    } else {
+      setLoading(false); // If no product, stop loading
     }
-    setLoading(false); // Data processing complete, stop loading
   }, [product]);
 
   if (!product) {

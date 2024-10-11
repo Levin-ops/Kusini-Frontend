@@ -11,12 +11,14 @@ function Checkout() {
     lastName: "",
     phoneNumber: "",
     paymentMethod: "",
+    location: "",
   });
   const [shippingFee, setShippingFee] = useState(100); // Default to Kilifi
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
+  // Handle input changes in the form
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
@@ -24,33 +26,39 @@ function Checkout() {
     });
   };
 
+  // Update shipping fee based on selected location
   const handleShippingChange = (e) => {
     const selectedFee = parseInt(e.target.value);
     setShippingFee(selectedFee);
   };
 
+  // Validate phone number format
   const validatePhoneNumber = (phoneNumber) => {
     const phoneRegex = /^\d{10}$/; // Adjust regex for your region's phone number format
     return phoneRegex.test(phoneNumber);
   };
 
+  // Submit order and initiate payment
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setErrorMessage("");
 
+    // Validate phone number
     if (!validatePhoneNumber(formData.phoneNumber)) {
       setErrorMessage("Please enter a valid phone number.");
       setLoading(false);
       return;
     }
 
+    // Construct the order data object
     const orderData = {
       customer: {
         firstName: formData.firstName,
         lastName: formData.lastName,
         phoneNumber: formData.phoneNumber,
       },
+      location: formData.location,
       items: all_product
         .filter((product) => cartItems[product.id] > 0)
         .map((product) => ({
@@ -65,7 +73,7 @@ function Checkout() {
       totalAmount: getTotalCartAmount() + shippingFee,
       status: "Pending",
     };
-
+    // Handle payment via STK Push for "Pay Now"
     if (formData.paymentMethod === "paynow") {
       await initiateSTKPush(
         formData.phoneNumber,
@@ -73,10 +81,12 @@ function Checkout() {
         orderData
       );
     } else {
+      // Handle Cash on Delivery or Mpesa on Delivery
       await completeOrder(orderData);
     }
   };
 
+  // Initiate Mpesa STK Push
   const initiateSTKPush = async (phone, amount, orderData) => {
     try {
       const response = await fetch(
@@ -104,6 +114,7 @@ function Checkout() {
     }
   };
 
+  // Complete the order
   const completeOrder = async (orderData) => {
     try {
       const response = await fetch(
@@ -223,7 +234,14 @@ function Checkout() {
             onChange={handleInputChange}
             required
           />
-
+          <input
+            type="text"
+            name="location"
+            placeholder="Enter your location"
+            value={formData.location}
+            onChange={handleInputChange}
+            required
+          />
           <h3>Payment</h3>
           <div className="checkout_payment_options">
             <label>
@@ -257,9 +275,7 @@ function Checkout() {
               Pay Now
             </label>
           </div>
-
           {errorMessage && <p className="error-message">{errorMessage}</p>}
-
           <button
             type="submit"
             className="checkout_place_order"

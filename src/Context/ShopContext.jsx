@@ -16,7 +16,11 @@ const ShopContextProvider = (props) => {
   useEffect(() => {
     fetch("https://kusini-backend-1.onrender.com/products/allproducts")
       .then((response) => response.json())
-      .then((data) => setAll_Product(data));
+      .then((data) => {
+        // Filter out products that are not available
+        const inStockProducts = data.filter((product) => product.available);
+        setAll_Product(inStockProducts);
+      });
   }, []);
 
   const [cartItems, setCartItems] = useState(() => {
@@ -31,20 +35,21 @@ const ShopContextProvider = (props) => {
   const addToCart = (itemId) => {
     setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
   };
+
   const removeFromCart = (itemId) => {
     setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
   };
 
   const getTotalCartAmount = () => {
     let totalAmount = 0;
-    for (const item in cartItems) {
-      if (cartItems[item] > 0) {
-        let itemInfo = all_product.find(
-          (product) => product.id === Number(item)
-        );
-        totalAmount += itemInfo.price * cartItems[item];
+
+    all_product.forEach((product) => {
+      const quantity = cartItems[product?.id];
+      if (product && quantity > 0) {
+        totalAmount += product.price * quantity;
       }
-    }
+    });
+
     return totalAmount;
   };
 
@@ -57,9 +62,11 @@ const ShopContextProvider = (props) => {
     }
     return totalItems;
   };
+
   const resetCart = () => {
     setCartItems(getDefaultCart());
   };
+
   const contextValue = {
     getTotalCartItems,
     getTotalCartAmount,
@@ -69,6 +76,7 @@ const ShopContextProvider = (props) => {
     removeFromCart,
     resetCart,
   };
+
   return (
     <ShopContext.Provider value={contextValue}>
       {props.children}
