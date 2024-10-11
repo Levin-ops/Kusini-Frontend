@@ -90,7 +90,7 @@
   }
 
   .checkout_left {
-    margin-bottom: 20px;
+    margin-bottom: 30px; /* Increased margin-bottom for more space */
   }
 
   .checkout_product_icon {
@@ -113,6 +113,10 @@
   .checkout_left,
   .checkout_right {
     width: 100%;
+  }
+
+  .checkout_left {
+    margin-bottom: 25px; /* Increased margin-bottom for more space */
   }
 
   .checkout_product_icon {
@@ -139,6 +143,10 @@
   .checkout {
     padding: 5px;
     margin: 5px auto;
+  }
+
+  .checkout_left {
+    margin-bottom: 20px; /* Adjusted margin for smaller screens */
   }
 
   .checkout_product_icon {
