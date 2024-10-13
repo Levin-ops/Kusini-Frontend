@@ -90,7 +90,7 @@ function Checkout() {
   const initiateSTKPush = async (phone, amount, orderData) => {
     try {
       const response = await fetch(
-        "https://kusini-backend-1.onrender.com/orders/stkpush",
+        "https://kusini-backend-1.onrender.com/mpesa/stkpush",
         {
           method: "POST",
           headers: {
