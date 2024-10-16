@@ -102,21 +102,61 @@ function Checkout() {
 
       if (response.ok) {
         const data = await response.json();
-        alert("STK Push sent! Please complete payment on your phone.");
-        await completeOrder(orderData);
+        alert("STK Push Sent! Please complete payment on your phone.");
+
+        const result = await pollForPaymentConfirmation(
+          orderData.customer.phoneNumber
+        );
+        if (result.success) {
+          alert("Payment confirmed! Order completed.");
+          await completeOrder(orderData);
+          resetCart();
+          navigate("/");
+        } else {
+          alert("Payment failed or was canceled. Please try again.");
+        }
       } else {
-        throw new Error("Error initiating STK Push");
+        setErrorMessage("Failed to initiate payment");
       }
     } catch (error) {
-      setErrorMessage("Payment initiation failed. Please try again.");
+      setErrorMessage("Payment initiation failed. Please try again");
     } finally {
       setLoading(false);
     }
   };
 
+  const pollForPaymentConfirmation = async (phoneNumber) => {
+    const maxAttempts = 6;
+    const delay = 5000;
+
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      try {
+        const response = await fetch(
+          `https://kusini-backend-1.onrender.com/orders/checkPaymentStatus?phoneNumber=${phoneNumber}`
+        );
+        if (response.ok) {
+          const data = await response.json();
+          if (data.paymentStatus === "PAID") {
+            return { success: true };
+          }
+        }
+      } catch (error) {
+        console.error("Error polling payment status: ", error);
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, delay));
+    }
+    return { success: false };
+  };
+
   // Complete the order
-  const completeOrder = async (orderData) => {
+  const completeOrder = async (orderData, paymentSuccessful) => {
     try {
+      if (!paymentSuccessful && orderData.paymentMethod === "paynow") {
+        setErrorMessage("Please complete the payment via Mpesa.");
+        return;
+      }
+
       const response = await fetch(
         "https://kusini-backend-1.onrender.com/orders/createOrder",
         {
@@ -133,7 +173,7 @@ function Checkout() {
           "Order placed successfully! You will receive your delivery soon."
         );
         resetCart();
-        navigate("/");
+        navigate("/"); // Redirect to home page after successful order placement
       } else {
         throw new Error("Error placing order");
       }

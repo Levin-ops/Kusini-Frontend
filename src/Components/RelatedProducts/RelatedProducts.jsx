@@ -1,35 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "./RelatedProducts.css";
 import Items from "../Items/Items";
+import { ShopContext } from "../../Context/ShopContext";
 
 function RelatedProducts({ product }) {
-  const [loading, setLoading] = useState(true);
+  const { all_product } = useContext(ShopContext);
   const [relatedProduct, setRelatedProduct] = useState([]);
 
   useEffect(() => {
-    if (product) {
-      // Fetch related products from the backend
-      fetch(
-        `https://kusini-backend-1.onrender.com/products/relatedproducts?category=${product.category}`
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          // Filter out the current product from the related products
-          const filteredProducts = data
-            .filter((item) => item.id !== product.id)
-            .slice(0, 4);
-          setRelatedProduct(filteredProducts);
-        })
-        .catch((error) => {
-          console.error("Error fetching related products:", error);
-        })
-        .finally(() => {
-          setLoading(false); // Data processing complete, stop loading
-        });
-    } else {
-      setLoading(false); // If no product, stop loading
+    if (product && all_product.length > 0) {
+      const filteredProducts = all_product.filter(
+        (item) => item.category === product.category && item.id !== product.id
+      );
+
+      const shuffledProducts = filteredProducts.sort(() => 0.5 - Math.random());
+
+      const randomProducts = shuffledProducts.slice(0, 4);
+
+      setRelatedProduct(randomProducts);
     }
-  }, [product]);
+  }, [product, all_product]);
 
   if (!product) {
     return (
@@ -42,9 +32,7 @@ function RelatedProducts({ product }) {
       <h1>Related Products</h1>
       <hr />
       <div className="related_products_item">
-        {loading ? (
-          <div className="loading-animation">Loading related products...</div> // Display a loading animation
-        ) : relatedProduct.length > 0 ? (
+        {relatedProduct.length > 0 ? (
           relatedProduct.map((item) => (
             <Items
               key={item.id}

@@ -12,16 +12,18 @@ function ProductDisplay(props) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://kusini-backend-1.onrender.com/products/softdrinks")
-      .then((response) => response.json())
-      .then((data) => {
-        setSoftDrinks(data);
-        setLoading(false);
-      })
-      .catch(() => {
-        setLoading(false);
-      });
-  }, []);
+    if (product.category !== "soft-drink") {
+      fetch("https://kusini-backend-1.onrender.com/products/softdrinks")
+        .then((response) => response.json())
+        .then((data) => {
+          setSoftDrinks(data);
+          setLoading(false);
+        })
+        .catch(() => {
+          setLoading(false);
+        });
+    }
+  }, [product.category]);
 
   return (
     <div className="product_display">
@@ -46,20 +48,27 @@ function ProductDisplay(props) {
         </div>
         <div className="product_display_right_price">Ksh{product.price}</div>
         <div className="product_display_right_desc">{product.description}</div>
-        <div className="product_display_right_accompaniments">
-          <h1>Select Accompaniments</h1>
-          <div className="product_display_right_condiments">
-            {loading ? (
-              <div className="loading-animation">Loading accompaniments...</div> // Display loading animation
-            ) : (
-              softDrinks.map((drink, i) => (
-                <div key={i}>
-                  <img src={drink.image} alt={drink.name} />
+
+        {/* Only show accompaniments if the product category is not "other" or "soft-drink" */}
+        {product.category !== "soft-drink" && (
+          <div className="product_display_right_accompaniments">
+            <h1>Select Accompaniments</h1>
+            <div className="product_display_right_condiments">
+              {loading ? (
+                <div className="loading-animation">
+                  Loading accompaniments...
                 </div>
-              ))
-            )}
+              ) : (
+                softDrinks.map((drink, i) => (
+                  <div key={i}>
+                    <img src={drink.image} alt={drink.name} />
+                  </div>
+                ))
+              )}
+            </div>
           </div>
-        </div>
+        )}
+
         <button
           onClick={() => {
             addToCart(product.id);

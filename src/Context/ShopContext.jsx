@@ -14,12 +14,10 @@ const ShopContextProvider = (props) => {
   const [all_product, setAll_Product] = useState([]);
 
   useEffect(() => {
-    fetch("https://kusini-backend-1.onrender.com/products/allproducts")
+    fetch("https://kusini-backend-1.onrender.com/products/customerproducts")
       .then((response) => response.json())
       .then((data) => {
-        // Filter out products that are not available
-        const inStockProducts = data.filter((product) => product.available);
-        setAll_Product(inStockProducts);
+        setAll_Product(data);
       });
   }, []);
 

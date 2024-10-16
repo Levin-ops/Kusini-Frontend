@@ -14,11 +14,18 @@
   gap: 75px;
   padding: 20px 0px;
   color: #000000;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
 }
+
+.cart_item_format_main button {
+  height: 40px;
+  width: 40px;
+  justify-self: center;
+}
+
 .cart_items_format {
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 500;
 }
 .cart_icon_product_icon {

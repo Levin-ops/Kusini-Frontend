@@ -24,7 +24,7 @@ function App() {
           <Route path="/beers" element={<ShopCategory category="beer" />} />
           <Route
             path="/sodas"
-            element={<ShopCategory category="soft_drink" />}
+            element={<ShopCategory category="soft-drink" />}
           />
           <Route path="/brandy" element={<ShopCategory category="brandy" />} />
           <Route path="/gin" element={<ShopCategory category="gin" />} />
