@@ -1,17 +1,17 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Navbar.css";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { ShopContext } from "../../Context/ShopContext";
 import shop_logo from "../Assets/Images/Kusini_logo.jpeg";
 import { BsCart } from "react-icons/bs";
 import { BsJustify } from "react-icons/bs";
 
 function Navbar() {
-  const [menu, setMenu] = useState("shop");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { getTotalCartItems } = useContext(ShopContext);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogoClick = () => {
     navigate("/");
@@ -20,6 +20,25 @@ function Navbar() {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const getActiveMenu = (path) => {
+    if (path.startsWith("/beers")) return "beers";
+    if (path.startsWith("/brandy")) return "brandy";
+    if (path.startsWith("/gin")) return "gin";
+    if (path.startsWith("/sodas")) return "sodas";
+    if (path.startsWith("/spirits")) return "spirits";
+    if (path.startsWith("/vodka")) return "vodka";
+    if (path.startsWith("/whisky")) return "whisky";
+    if (path.startsWith("/wine")) return "wine";
+    if (path.startsWith("/others")) return "others";
+    return "shop";
+  };
+
+  const [menu, setMenu] = useState("");
+
+  useEffect(() => {
+    setMenu(getActiveMenu(location.pathname));
+  }, [location.pathname]);
 
   return (
     <div className="navbar">
