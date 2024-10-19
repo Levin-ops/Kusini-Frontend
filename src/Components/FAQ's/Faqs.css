@@ -1,0 +1,121 @@
+/* Faqs.css */
+
+.faqs {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f5f5f5; /* Light beige background */
+  color: #333; /* Dark gray for text readability */
+  font-family: Arial, sans-serif;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for card effect */
+}
+
+h2 {
+  color: #6b4f26; /* Dark brown */
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.faq-item {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 2px solid #6b4f26; /* Brown border for each FAQ */
+  border-radius: 6px;
+  background-color: #fff;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.faq-item:hover {
+  background-color: #ece2d0; /* Light brown hover effect */
+}
+
+.faq-question {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #6b4f26; /* Brown text for questions */
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.faq-answer {
+  font-size: 1rem;
+  color: #333;
+  display: none; /* Hidden by default */
+  margin-top: 10px;
+}
+
+.faq-item.active .faq-answer {
+  display: block; /* Display answer when FAQ item is active */
+}
+
+.faq-question::before {
+  content: "+ ";
+  color: #6b4f26; /* Brown plus sign */
+}
+
+.faq-item.active .faq-question::before {
+  content: "- "; /* Change plus to minus when active */
+}
+
+.faqs form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.faqs label {
+  font-weight: bold;
+  color: #6b4f26; /* Dark brown for label text */
+  margin-bottom: 5px;
+}
+
+.faqs input[type="email"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 2px solid #b07506; /* Brown border */
+  border-radius: 4px;
+  background-color: #fff;
+  color: #333;
+  font-size: 1rem;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.faqs input[type="email"]:focus,
+textarea:focus {
+  border-color: #000; /* Black focus border */
+}
+
+.faqs textarea {
+  height: 150px;
+  resize: none;
+}
+
+.faqs button[type="submit"] {
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  background-color: #b07506; /* Brown button */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.faqs button[type="submit"]:hover {
+  background-color: #4f3820; /* Darker brown on hover */
+}
+
+.faqs p {
+  font-size: 1rem;
+  color: #333;
+  margin: 5px 0;
+}
+
+.faqs input,
+textarea {
+  font-family: inherit;
+}
