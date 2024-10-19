@@ -62,7 +62,6 @@ function Checkout() {
       items: all_product
         .filter((product) => cartItems[product.id] > 0)
         .map((product) => ({
-          productId: product.id,
           name: product.name,
           quantity: cartItems[product.id],
           price: product.price,
@@ -71,18 +70,22 @@ function Checkout() {
       paymentMethod: formData.paymentMethod,
       shippingFee: shippingFee,
       totalAmount: getTotalCartAmount() + shippingFee,
-      status: "Pending",
+      status: "Pending", // Default status for now
     };
-    // Handle payment via STK Push for "Pay Now"
-    if (formData.paymentMethod === "paynow") {
-      await initiateSTKPush(
-        formData.phoneNumber,
-        orderData.totalAmount,
-        orderData
-      );
-    } else {
-      // Handle Cash on Delivery or Mpesa on Delivery
-      await completeOrder(orderData);
+
+    try {
+      if (formData.paymentMethod === "paynow") {
+        await initiateSTKPush(
+          formData.phoneNumber,
+          orderData.totalAmount,
+          orderData
+        );
+      } else {
+        await completeOrder(orderData);
+      }
+    } catch (error) {
+      setErrorMessage("An error occurred. Please try again.");
+      setLoading(false);
     }
   };
 
@@ -150,13 +153,9 @@ function Checkout() {
   };
 
   // Complete the order
-  const completeOrder = async (orderData, paymentSuccessful) => {
+  const completeOrder = async (orderData) => {
     try {
-      if (!paymentSuccessful && orderData.paymentMethod === "paynow") {
-        setErrorMessage("Please complete the payment via Mpesa.");
-        return;
-      }
-
+      // Directly place order for "cod" or "mpesa"
       const response = await fetch(
         "https://kusini-backend-1.onrender.com/orders/createOrder",
         {
@@ -173,7 +172,7 @@ function Checkout() {
           "Order placed successfully! You will receive your delivery soon."
         );
         resetCart();
-        navigate("/"); // Redirect to home page after successful order placement
+        navigate("/");
       } else {
         throw new Error("Error placing order");
       }
