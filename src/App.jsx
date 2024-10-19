@@ -9,6 +9,8 @@ import Product from "./Pages/Product";
 import Cart from "./Pages/Cart";
 import Footer from "./Components/Footer/Footer";
 import Checkout from "./Components/Checkout/Checkout";
+import Faqs from "./Components/FAQ's/Faqs";
+import Contacts from "./Components/Contacts/Contacts";
 
 function App() {
   return (
@@ -38,6 +40,8 @@ function App() {
           </Route>
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/faqs" element={<Faqs />} />
+          <Route path="/contacts" element={<Contacts />} />
         </Routes>
         <Footer />
       </BrowserRouter>
