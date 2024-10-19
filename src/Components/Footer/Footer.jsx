@@ -5,17 +5,28 @@ import instagram_icon from "../Assets/instagram_icon.png";
 import facebook_icon from "../Assets/facebook.png";
 import whatsapp_icon from "../Assets/whatsapp_icon.png";
 import footer_logo from "../Assets/Images/Kusini_logo.jpeg";
+import { useNavigate } from "react-router-dom";
 
 function Footer() {
+  const navigate = useNavigate();
+
+  const handleLocationClick = () => {
+    navigate("/location");
+  };
+  const handleFAQsClick = () => {
+    navigate("/faqs");
+  };
+  const handleContactClick = () => {
+    navigate("/contacts");
+  };
   return (
     <div className="footer">
       <div className="footer_logo">
         <img src={footer_logo} alt="" />
       </div>
       <ul className="footer_links">
-        <li>Location</li>
-        <li>FAQs</li>
-        <li>Contact</li>
+        <li onClick={handleContactClick}>Contact</li>
+        <li onClick={handleFAQsClick}>FAQs</li>
       </ul>
       <div className="footer_social_icon">
         <div className="footer_icon_container">
