@@ -1,0 +1,39 @@
+/* Contacts.css */
+
+.contacts {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f5f5f5; /* Light beige background */
+  color: black; /* Dark gray for text readability */
+  font-family: Arial, sans-serif;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for card-like effect */
+}
+
+h2 {
+  color: #b07506; /* Dark brown */
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.location-details p,
+.location-details ul {
+  margin: 10px 0;
+  font-size: 1rem;
+  color: black;
+}
+
+.location-details strong {
+  color: #b07506; /* Dark brown for labels */
+}
+
+.location-details ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.location-details ul li {
+  margin-bottom: 5px;
+}
