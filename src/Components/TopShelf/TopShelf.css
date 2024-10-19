@@ -4,28 +4,28 @@
   align-items: center;
   gap: 10px;
   margin-bottom: 100px;
-  padding: 0 20px;
+  /* padding: 0 20px; */
   font-size: 12px;
 }
 .top_shelf h1 {
-  color: #171717;
+  color: black;
   font-size: 35px;
   font-weight: 600;
   text-align: center;
 }
 .top_shelf hr {
   width: 100px;
-  height: 4px;
+  height: 8px;
   border-radius: 10px;
-  background: #252525;
+  background: black;
   margin: 10px 0;
 }
 
 .topshelfdrinks {
   margin-top: 50px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 36px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  /* gap: 36px; */
 }
 
 .loading-animation {
@@ -45,7 +45,7 @@
 
   .top_shelf hr {
     width: 150px;
-    height: 5px;
+    height: 7px;
   }
 
   .topshelfdrinks {
@@ -66,7 +66,7 @@
 
   .top_shelf hr {
     width: 175px;
-    height: 6px;
+    height: 8px;
   }
 
   .topshelfdrinks {
@@ -76,7 +76,7 @@
 
 @media (min-width: 992px) {
   .top_shelf {
-    padding: 0 80px;
+    /* padding: 0 80px; */
     font-size: 12px;
   }
 
@@ -86,6 +86,6 @@
 
   .top_shelf hr {
     width: 200px;
-    height: 6px;
+    height: 8px;
   }
 }
