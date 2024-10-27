@@ -8,7 +8,7 @@ function Contacts() {
 
       <div className="location-details">
         <p>
-          <strong>Store Location:</strong> 123 Kusini Avenue, Kilifi, 00100
+          <strong>Store Location:</strong> 9RCW+QR, Kilifi
         </p>
         <p>
           <strong>Store Hours:</strong>
@@ -22,7 +22,7 @@ function Contacts() {
           <strong>Delivery/Pickup Zones:</strong> Kilifi town, Outside Kilifi
         </p>
         <p>
-          <strong>Contact Information:</strong> Phone: +254-700-123-456 | Email:
+          <strong>Contact Information:</strong> Phone: +254-743-557-476 | Email:
           contact@kusiniliquor.com
         </p>
       </div>
