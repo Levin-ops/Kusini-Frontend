@@ -10,6 +10,8 @@ function ProductDisplay(props) {
 
   const [softDrinks, setSoftDrinks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [confirmationMessage, setConfirmationMessage] = useState("");
+  const [selectedAccompaniments, setSelectedAccompaniments] = useState([]);
 
   useEffect(() => {
     if (product.category !== "soft-drink") {
@@ -25,9 +27,27 @@ function ProductDisplay(props) {
     }
   }, [product.category]);
 
+  const handleAddToCart = (event, id, name) => {
+    event.preventDefault();
+    addToCart(id);
+    setConfirmationMessage(`${name} added to cart`);
+
+    // Update selected accompaniments
+    if (!selectedAccompaniments.includes(id)) {
+      setSelectedAccompaniments((prev) => [...prev, id]);
+    }
+
+    setTimeout(() => {
+      setConfirmationMessage("");
+    }, 3000);
+  };
+
   return (
     <div className="product_display">
       <div className="product_display_left">
+        {confirmationMessage && (
+          <div className="confirmation-message">{confirmationMessage}</div>
+        )}
         <div className="product_display_image">
           <img
             src={product.image}
@@ -49,7 +69,6 @@ function ProductDisplay(props) {
         <div className="product_display_right_price">Ksh{product.price}</div>
         <div className="product_display_right_desc">{product.description}</div>
 
-        {/* Only show accompaniments if the product category is not "other" or "soft-drink" */}
         {product.category !== "soft-drink" && (
           <div className="product_display_right_accompaniments">
             <h1>Select Accompaniments</h1>
@@ -60,8 +79,19 @@ function ProductDisplay(props) {
                 </div>
               ) : (
                 softDrinks.map((drink, i) => (
-                  <div key={i}>
-                    <img src={drink.image} alt={drink.name} />
+                  <div key={i} className="accompaniment">
+                    <img
+                      src={drink.image}
+                      alt={drink.name}
+                      onClick={(event) =>
+                        handleAddToCart(event, drink.id, drink.name)
+                      }
+                      className={
+                        selectedAccompaniments.includes(drink.id)
+                          ? "highlighted"
+                          : ""
+                      }
+                    />
                   </div>
                 ))
               )}
@@ -70,12 +100,11 @@ function ProductDisplay(props) {
         )}
 
         <button
-          onClick={() => {
-            addToCart(product.id);
-          }}
+          onClick={(event) => handleAddToCart(event, product.id, product.name)}
         >
           Add To Cart
         </button>
+
         <p className="product_display_right_category">
           Category: <span>{product.category}</span>
         </p>

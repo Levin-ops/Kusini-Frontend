@@ -1,6 +1,5 @@
 import React from "react";
 import "./Popular.css";
-import data_product from "../Assets/data";
 import Items from "../Items/Items";
 import { useState, useEffect } from "react";
 
