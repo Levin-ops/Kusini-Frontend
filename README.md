@@ -1,4 +1,4 @@
-Kusini Frontend
+#Kusini Liquor Store
 
 An elegant online shop for premium beverages.
 
