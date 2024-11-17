@@ -1,11 +1,6 @@
----
+Kusini Frontend
 
-**Kusini Frontend**
-
-(https://kusiniliquor.co.ke)  
-*An elegant online shop for premium beverages.*
-
----
+An elegant online shop for premium beverages.
 
 ## **Table of Contents**
 
